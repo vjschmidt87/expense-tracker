@@ -1,0 +1,74 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.page {
+  padding: $spacing-lg;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: $spacing-lg;
+
+  h1 { font-size: $font-2xl; }
+}
+
+.form-card {
+  @include card;
+  padding: $spacing-xl;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-md;
+  margin-bottom: $spacing-md;
+
+  @include respond-to($breakpoint-md) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.field {
+  label {
+    display: block;
+    font-size: $font-sm;
+    font-weight: 500;
+    margin-bottom: $spacing-xs;
+    color: var(--color-text-secondary);
+  }
+
+  input, select {
+    @include input-base;
+  }
+}
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    margin-bottom: 0;
+    cursor: pointer;
+    color: var(--color-text-primary);
+  }
+
+  input[type="checkbox"] {
+    width: auto;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-sm;
+  margin-top: $spacing-lg;
+  padding-top: $spacing-lg;
+  border-top: 1px solid var(--color-border);
+}
+
+.btn-cancel { @include btn-secondary; }
+.btn-save { @include btn-primary; }

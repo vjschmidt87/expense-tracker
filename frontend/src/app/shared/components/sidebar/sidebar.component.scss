@@ -1,0 +1,61 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: $header-height;
+  width: $sidebar-width;
+  height: calc(100vh - $header-height);
+  background: var(--color-bg-secondary);
+  border-right: 1px solid var(--color-border);
+  transform: translateX(-100%);
+  transition: transform $transition-normal;
+  z-index: 90;
+  overflow-y: auto;
+
+  &.open {
+    transform: translateX(0);
+  }
+
+  @include respond-to($breakpoint-lg) {
+    transform: translateX(0);
+  }
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  padding: $spacing-md;
+  gap: $spacing-xs;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $radius-sm;
+  color: var(--color-text-secondary);
+  transition: all $transition-fast;
+  text-decoration: none;
+
+  &:hover {
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+  }
+
+  &.active {
+    background: var(--color-accent-light);
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+}
+
+.nav-icon {
+  font-size: $font-lg;
+}
+
+.nav-label {
+  font-size: $font-sm;
+}

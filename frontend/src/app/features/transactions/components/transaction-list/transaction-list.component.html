@@ -1,0 +1,60 @@
+<div class="page">
+  <div class="page-header">
+    <h1>{{ i18n.t('transactions.title') }}</h1>
+    <div class="header-actions">
+      <button class="btn-export" (click)="exportCsv()">{{ i18n.t('transactions.export') }}</button>
+      <button class="btn-add" (click)="addNew()">+ {{ i18n.t('transactions.add') }}</button>
+    </div>
+  </div>
+
+  <div class="filters">
+    <select [(ngModel)]="filterType" (ngModelChange)="loadTransactions()">
+      <option value="">{{ i18n.t('transactions.all') }}</option>
+      <option value="INCOME">{{ i18n.t('transactions.income') }}</option>
+      <option value="EXPENSE">{{ i18n.t('transactions.expense') }}</option>
+    </select>
+    <select [(ngModel)]="filterCategory" (ngModelChange)="loadTransactions()">
+      <option value="">{{ i18n.t('transactions.category') }}</option>
+      @for (c of categories(); track c.id) {
+        <option [value]="c.id">{{ getCatName(c) }}</option>
+      }
+    </select>
+    <input type="number" [(ngModel)]="filterMonth" min="1" max="12" (ngModelChange)="loadTransactions()" />
+    <input type="number" [(ngModel)]="filterYear" (ngModelChange)="loadTransactions()" />
+  </div>
+
+  @if (transactions().length === 0) {
+    <div class="empty">{{ i18n.t('transactions.noData') }}</div>
+  }
+
+  <div class="tx-list">
+    @for (tx of transactions(); track tx.id) {
+      <div class="tx-row">
+        <div class="tx-left">
+          <span class="tx-icon">{{ tx.categoryIcon }}</span>
+          <div class="tx-details">
+            <span class="tx-desc">{{ getDescription(tx) }}</span>
+            <span class="tx-meta">{{ getCategoryName(tx) }} · {{ tx.date }}</span>
+          </div>
+        </div>
+        <div class="tx-right">
+          <span class="tx-amount" [class.income]="tx.type === 'INCOME'" [class.expense]="tx.type === 'EXPENSE'">
+            {{ tx.type === 'INCOME' ? '+' : '-' }}{{ tx.amount | currencyFormat: i18n.lang() }}
+          </span>
+          <div class="tx-actions">
+            <button class="btn-icon" (click)="edit(tx.id)">✏️</button>
+            <button class="btn-icon" (click)="confirmDelete(tx.id)">🗑️</button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
+
+@if (deleteTarget() !== null) {
+  <app-confirm-dialog
+    [message]="i18n.t('transactions.deleteConfirm')"
+    (confirmed)="doDelete()"
+    (cancelled)="deleteTarget.set(null)">
+  </app-confirm-dialog>
+}

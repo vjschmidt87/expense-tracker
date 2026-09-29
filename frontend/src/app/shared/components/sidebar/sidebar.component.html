@@ -1,0 +1,10 @@
+<aside class="sidebar" [class.open]="isOpen()">
+  <nav class="nav">
+    @for (item of navItems; track item.route) {
+      <a [routerLink]="item.route" routerLinkActive="active" class="nav-item">
+        <span class="nav-icon">{{ item.icon }}</span>
+        <span class="nav-label">{{ i18n.t(item.label) }}</span>
+      </a>
+    }
+  </nav>
+</aside>

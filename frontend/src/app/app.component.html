@@ -1,0 +1,9 @@
+@if (auth.isAuthenticated()) {
+  <app-header (menuToggle)="toggleSidebar()"></app-header>
+  <app-sidebar [isOpen]="sidebarOpen()"></app-sidebar>
+  <main class="main-content" (click)="sidebarOpen.set(false)">
+    <router-outlet />
+  </main>
+} @else {
+  <router-outlet />
+}

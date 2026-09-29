@@ -1,0 +1,12 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.main-content {
+  margin-top: 0;
+  min-height: calc(100vh - $header-height);
+  transition: margin-left $transition-normal;
+
+  @include respond-to($breakpoint-lg) {
+    margin-left: $sidebar-width;
+  }
+}

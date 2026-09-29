@@ -1,0 +1,38 @@
+server:
+  port: 8089
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:expense_tracker
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+  h2:
+    console:
+      enabled: true
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:ZXhwZW5zZXRyYWNrZXJzZWNyZXRrZXlmb3Jqd3R0b2tlbmdlbmVyYXRpb24xMjM0NTY3ODkw}
+    expiration-ms: 86400000
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+  h2:
+    console:
+      enabled: false

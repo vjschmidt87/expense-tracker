@@ -1,0 +1,156 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.page {
+  padding: $spacing-lg;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.page-header {
+  @include flex-between;
+  margin-bottom: $spacing-lg;
+
+  h1 { font-size: $font-2xl; }
+}
+
+.btn-add { @include btn-primary; }
+
+.filters {
+  display: flex;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+
+  input {
+    @include input-base;
+    width: 100px;
+  }
+}
+
+.empty {
+  @include card;
+  @include flex-center;
+  padding: $spacing-2xl;
+  color: var(--color-text-secondary);
+}
+
+.budget-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: $spacing-md;
+}
+
+.budget-card {
+  @include card;
+  padding: $spacing-lg;
+
+  &.over {
+    border-color: var(--color-danger);
+  }
+}
+
+.budget-top {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-md;
+}
+
+.cat-icon { font-size: $font-xl; }
+
+.cat-name {
+  font-weight: 600;
+  flex: 1;
+}
+
+.budget-actions {
+  display: flex;
+  gap: $spacing-xs;
+}
+
+.btn-icon {
+  @include btn-base;
+  background: none;
+  padding: $spacing-xs;
+}
+
+.budget-bar {
+  height: 8px;
+  background: var(--color-bg-tertiary);
+  border-radius: $radius-full;
+  overflow: hidden;
+  margin-bottom: $spacing-sm;
+}
+
+.bar-fill {
+  height: 100%;
+  background: var(--color-accent);
+  border-radius: $radius-full;
+  transition: width $transition-normal;
+
+  &.over { background: var(--color-danger); }
+}
+
+.budget-info {
+  @include flex-between;
+  font-size: $font-xs;
+  color: var(--color-text-secondary);
+  margin-bottom: $spacing-xs;
+}
+
+.over-label {
+  font-size: $font-xs;
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.remaining-label {
+  font-size: $font-xs;
+  color: var(--color-success);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--color-overlay);
+  @include flex-center;
+  z-index: 200;
+}
+
+.modal {
+  @include card;
+  padding: $spacing-xl;
+  width: 90%;
+  max-width: 420px;
+
+  h2 {
+    font-size: $font-lg;
+    margin-bottom: $spacing-lg;
+  }
+}
+
+.field {
+  margin-bottom: $spacing-md;
+
+  label {
+    display: block;
+    font-size: $font-sm;
+    font-weight: 500;
+    margin-bottom: $spacing-xs;
+    color: var(--color-text-secondary);
+  }
+
+  input, select {
+    @include input-base;
+  }
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-sm;
+  margin-top: $spacing-lg;
+}
+
+.btn-cancel { @include btn-secondary; }
+.btn-save { @include btn-primary; }

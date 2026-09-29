@@ -1,0 +1,37 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--color-overlay);
+  @include flex-center;
+  z-index: 200;
+}
+
+.dialog {
+  @include card;
+  padding: $spacing-xl;
+  max-width: 400px;
+  width: 90%;
+}
+
+.message {
+  font-size: $font-base;
+  margin-bottom: $spacing-lg;
+  color: var(--color-text-primary);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-sm;
+}
+
+.btn-cancel {
+  @include btn-secondary;
+}
+
+.btn-confirm {
+  @include btn-danger;
+}

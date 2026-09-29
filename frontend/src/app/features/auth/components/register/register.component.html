@@ -1,0 +1,28 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <h1 class="title">💰 {{ i18n.t('app.title') }}</h1>
+    <h2 class="subtitle">{{ i18n.t('auth.register') }}</h2>
+    @if (error()) {
+      <div class="error">{{ error() }}</div>
+    }
+    <form (ngSubmit)="onSubmit()">
+      <div class="field">
+        <label>{{ i18n.t('auth.username') }}</label>
+        <input type="text" [(ngModel)]="username" name="username" required />
+      </div>
+      <div class="field">
+        <label>{{ i18n.t('auth.email') }}</label>
+        <input type="email" [(ngModel)]="email" name="email" required />
+      </div>
+      <div class="field">
+        <label>{{ i18n.t('auth.password') }}</label>
+        <input type="password" [(ngModel)]="password" name="password" required />
+      </div>
+      <button type="submit" class="btn-submit">{{ i18n.t('auth.register') }}</button>
+    </form>
+    <p class="link">
+      {{ i18n.t('auth.hasAccount') }}
+      <a routerLink="/login">{{ i18n.t('auth.login') }}</a>
+    </p>
+  </div>
+</div>

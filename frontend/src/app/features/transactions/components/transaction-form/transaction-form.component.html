@@ -1,0 +1,72 @@
+<div class="page">
+  <div class="page-header">
+    <h1>{{ isEdit ? i18n.t('transactions.edit') : i18n.t('transactions.add') }}</h1>
+  </div>
+
+  <form class="form-card" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="field">
+        <label>{{ i18n.t('transactions.type') }}</label>
+        <select [(ngModel)]="form.type" name="type">
+          <option value="EXPENSE">{{ i18n.t('transactions.expense') }}</option>
+          <option value="INCOME">{{ i18n.t('transactions.income') }}</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>{{ i18n.t('transactions.amount') }}</label>
+        <input type="number" [(ngModel)]="form.amount" name="amount" step="0.01" min="0" required />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="field">
+        <label>{{ i18n.t('transactions.description') }} (EN)</label>
+        <input type="text" [(ngModel)]="form.description" name="description" required />
+      </div>
+      <div class="field">
+        <label>{{ i18n.t('transactions.description') }} (PT)</label>
+        <input type="text" [(ngModel)]="form.descriptionPt" name="descriptionPt" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="field">
+        <label>{{ i18n.t('transactions.category') }}</label>
+        <select [(ngModel)]="form.categoryId" name="categoryId" required>
+          <option [value]="0" disabled>--</option>
+          @for (c of filteredCategories(); track c.id) {
+            <option [value]="c.id">{{ c.icon }} {{ getCatName(c) }}</option>
+          }
+        </select>
+      </div>
+      <div class="field">
+        <label>{{ i18n.t('transactions.date') }}</label>
+        <input type="date" [(ngModel)]="form.date" name="date" required />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="field checkbox-field">
+        <label>
+          <input type="checkbox" [(ngModel)]="form.recurring" name="recurring" />
+          {{ i18n.t('transactions.recurring') }}
+        </label>
+      </div>
+      @if (form.recurring) {
+        <div class="field">
+          <label>{{ i18n.t('transactions.recurrenceType') }}</label>
+          <select [(ngModel)]="form.recurrenceType" name="recurrenceType">
+            <option value="WEEKLY">{{ i18n.t('recurrence.WEEKLY') }}</option>
+            <option value="MONTHLY">{{ i18n.t('recurrence.MONTHLY') }}</option>
+            <option value="YEARLY">{{ i18n.t('recurrence.YEARLY') }}</option>
+          </select>
+        </div>
+      }
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn-cancel" (click)="cancel()">{{ i18n.t('common.cancel') }}</button>
+      <button type="submit" class="btn-save">{{ i18n.t('common.save') }}</button>
+    </div>
+  </form>
+</div>

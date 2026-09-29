@@ -1,0 +1,18 @@
+<header class="header">
+  <div class="header-left">
+    <button class="menu-btn" (click)="menuToggle.emit()">☰</button>
+    <span class="logo">💰 {{ i18n.t('app.title') }}</span>
+  </div>
+  <div class="header-right">
+    <button class="icon-btn" (click)="theme.toggle()" [title]="i18n.t('settings.theme')">
+      {{ theme.theme() === 'dark' ? '☀️' : '🌙' }}
+    </button>
+    <button class="icon-btn lang-btn" (click)="i18n.toggleLang()">
+      {{ i18n.lang() === 'en' ? 'PT-BR' : 'EN' }}
+    </button>
+    @if (auth.isAuthenticated()) {
+      <span class="username">{{ auth.username() }}</span>
+      <button class="icon-btn" (click)="auth.logout()" [title]="i18n.t('nav.logout')">🚪</button>
+    }
+  </div>
+</header>

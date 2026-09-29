@@ -1,0 +1,68 @@
+<div class="page">
+  <div class="page-header">
+    <h1>{{ i18n.t('categories.title') }}</h1>
+    <button class="btn-add" (click)="openAdd()">+ {{ i18n.t('categories.add') }}</button>
+  </div>
+
+  <div class="cat-grid">
+    @for (c of categories(); track c.id) {
+      <div class="cat-card">
+        <div class="cat-top">
+          <span class="cat-icon">{{ c.icon }}</span>
+          <div class="cat-info">
+            <span class="cat-name">{{ getName(c) }}</span>
+            <span class="cat-type" [class.income]="c.type === 'INCOME'" [class.expense]="c.type === 'EXPENSE'">
+              {{ c.type === 'INCOME' ? i18n.t('transactions.income') : i18n.t('transactions.expense') }}
+            </span>
+          </div>
+          <span class="badge">{{ isDefault(c) ? i18n.t('categories.default') : i18n.t('categories.custom') }}</span>
+        </div>
+        @if (!isDefault(c)) {
+          <div class="cat-actions">
+            <button class="btn-icon" (click)="openEdit(c)">✏️</button>
+            <button class="btn-icon" (click)="confirmDelete(c.id)">🗑️</button>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>
+
+@if (showForm()) {
+  <div class="overlay" (click)="showForm.set(false)">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h2>{{ editId() ? i18n.t('categories.edit') : i18n.t('categories.add') }}</h2>
+      <div class="field">
+        <label>{{ i18n.t('categories.name') }} (EN)</label>
+        <input type="text" [(ngModel)]="form.name" />
+      </div>
+      <div class="field">
+        <label>{{ i18n.t('categories.namePt') }}</label>
+        <input type="text" [(ngModel)]="form.namePt" />
+      </div>
+      <div class="field">
+        <label>{{ i18n.t('categories.icon') }}</label>
+        <input type="text" [(ngModel)]="form.icon" maxlength="4" />
+      </div>
+      <div class="field">
+        <label>{{ i18n.t('categories.type') }}</label>
+        <select [(ngModel)]="form.type">
+          <option value="EXPENSE">{{ i18n.t('transactions.expense') }}</option>
+          <option value="INCOME">{{ i18n.t('transactions.income') }}</option>
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="showForm.set(false)">{{ i18n.t('common.cancel') }}</button>
+        <button class="btn-save" (click)="save()">{{ i18n.t('common.save') }}</button>
+      </div>
+    </div>
+  </div>
+}
+
+@if (deleteTarget() !== null) {
+  <app-confirm-dialog
+    [message]="i18n.t('transactions.deleteConfirm')"
+    (confirmed)="doDelete()"
+    (cancelled)="deleteTarget.set(null)">
+  </app-confirm-dialog>
+}

@@ -1,0 +1,9 @@
+<div class="overlay" (click)="cancelled.emit()">
+  <div class="dialog" (click)="$event.stopPropagation()">
+    <p class="message">{{ message() }}</p>
+    <div class="actions">
+      <button class="btn-cancel" (click)="cancelled.emit()">{{ i18n.t('common.cancel') }}</button>
+      <button class="btn-confirm" (click)="confirmed.emit()">{{ i18n.t('common.confirm') }}</button>
+    </div>
+  </div>
+</div>

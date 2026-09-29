@@ -1,0 +1,27 @@
+<div class="page">
+  <h1>{{ i18n.t('settings.title') }}</h1>
+
+  <div class="settings-card">
+    <div class="setting-row">
+      <div class="setting-info">
+        <span class="setting-label">{{ i18n.t('settings.theme') }}</span>
+        <span class="setting-desc">
+          {{ theme.theme() === 'dark' ? i18n.t('settings.darkMode') : i18n.t('settings.lightMode') }}
+        </span>
+      </div>
+      <button class="btn-toggle" (click)="theme.toggle()">
+        {{ theme.theme() === 'dark' ? '☀️' : '🌙' }}
+      </button>
+    </div>
+
+    <div class="setting-row">
+      <div class="setting-info">
+        <span class="setting-label">{{ i18n.t('settings.language') }}</span>
+        <span class="setting-desc">{{ i18n.lang() === 'en' ? 'English' : 'Português (BR)' }}</span>
+      </div>
+      <button class="btn-toggle" (click)="i18n.toggleLang()">
+        {{ i18n.lang() === 'en' ? '🇧🇷' : '🇺🇸' }}
+      </button>
+    </div>
+  </div>
+</div>

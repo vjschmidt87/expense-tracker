@@ -1,0 +1,75 @@
+<div class="page">
+  <div class="page-header">
+    <h1>{{ i18n.t('budgets.title') }}</h1>
+    <button class="btn-add" (click)="openAdd()">+ {{ i18n.t('budgets.add') }}</button>
+  </div>
+
+  <div class="filters">
+    <input type="number" [(ngModel)]="month" min="1" max="12" (ngModelChange)="loadBudgets()" />
+    <input type="number" [(ngModel)]="year" (ngModelChange)="loadBudgets()" />
+  </div>
+
+  @if (budgets().length === 0) {
+    <div class="empty">{{ i18n.t('budgets.noData') }}</div>
+  }
+
+  <div class="budget-grid">
+    @for (b of budgets(); track b.id) {
+      <div class="budget-card" [class.over]="isOver(b)">
+        <div class="budget-top">
+          <span class="cat-icon">{{ b.categoryIcon }}</span>
+          <span class="cat-name">{{ getCategoryName(b) }}</span>
+          <div class="budget-actions">
+            <button class="btn-icon" (click)="openEdit(b)">✏️</button>
+            <button class="btn-icon" (click)="confirmDelete(b.id)">🗑️</button>
+          </div>
+        </div>
+        <div class="budget-bar">
+          <div class="bar-fill" [style.width.%]="getSpentPercent(b)" [class.over]="isOver(b)"></div>
+        </div>
+        <div class="budget-info">
+          <span>{{ i18n.t('budgets.spent') }}: {{ b.spent | currencyFormat: i18n.lang() }}</span>
+          <span>{{ i18n.t('budgets.amount') }}: {{ b.amount | currencyFormat: i18n.lang() }}</span>
+        </div>
+        @if (isOver(b)) {
+          <span class="over-label">{{ i18n.t('budgets.over') }}</span>
+        } @else {
+          <span class="remaining-label">{{ i18n.t('budgets.remaining') }}: {{ (b.amount - b.spent) | currencyFormat: i18n.lang() }}</span>
+        }
+      </div>
+    }
+  </div>
+</div>
+
+@if (showForm()) {
+  <div class="overlay" (click)="showForm.set(false)">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h2>{{ editId() ? i18n.t('budgets.edit') : i18n.t('budgets.add') }}</h2>
+      <div class="field">
+        <label>{{ i18n.t('transactions.category') }}</label>
+        <select [(ngModel)]="form.categoryId">
+          <option [value]="0" disabled>--</option>
+          @for (c of categories(); track c.id) {
+            <option [value]="c.id">{{ c.icon }} {{ getCatName(c) }}</option>
+          }
+        </select>
+      </div>
+      <div class="field">
+        <label>{{ i18n.t('budgets.amount') }}</label>
+        <input type="number" [(ngModel)]="form.amount" step="0.01" min="0" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="showForm.set(false)">{{ i18n.t('common.cancel') }}</button>
+        <button class="btn-save" (click)="save()">{{ i18n.t('common.save') }}</button>
+      </div>
+    </div>
+  </div>
+}
+
+@if (deleteTarget() !== null) {
+  <app-confirm-dialog
+    [message]="i18n.t('transactions.deleteConfirm')"
+    (confirmed)="doDelete()"
+    (cancelled)="deleteTarget.set(null)">
+  </app-confirm-dialog>
+}

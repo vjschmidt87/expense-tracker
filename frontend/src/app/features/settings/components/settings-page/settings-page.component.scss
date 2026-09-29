@@ -1,0 +1,45 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.page {
+  padding: $spacing-lg;
+  max-width: 600px;
+  margin: 0 auto;
+
+  h1 {
+    font-size: $font-2xl;
+    margin-bottom: $spacing-lg;
+  }
+}
+
+.settings-card {
+  @include card;
+  overflow: hidden;
+}
+
+.setting-row {
+  @include flex-between;
+  padding: $spacing-lg;
+  border-bottom: 1px solid var(--color-border);
+
+  &:last-child { border-bottom: none; }
+}
+
+.setting-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: $spacing-xs;
+}
+
+.setting-desc {
+  font-size: $font-sm;
+  color: var(--color-text-secondary);
+}
+
+.btn-toggle {
+  @include btn-secondary;
+  font-size: $font-xl;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+}

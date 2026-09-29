@@ -1,0 +1,71 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.auth-page {
+  @include flex-center;
+  min-height: 100vh;
+  padding: $spacing-lg;
+}
+
+.auth-card {
+  @include card;
+  padding: $spacing-2xl;
+  width: 100%;
+  max-width: 420px;
+}
+
+.title {
+  font-size: $font-2xl;
+  text-align: center;
+  margin-bottom: $spacing-xs;
+}
+
+.subtitle {
+  font-size: $font-lg;
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-bottom: $spacing-xl;
+}
+
+.error {
+  background: var(--color-danger-light);
+  color: var(--color-danger);
+  padding: $spacing-sm $spacing-md;
+  border-radius: $radius-sm;
+  font-size: $font-sm;
+  margin-bottom: $spacing-md;
+}
+
+.field {
+  margin-bottom: $spacing-md;
+
+  label {
+    display: block;
+    font-size: $font-sm;
+    font-weight: 500;
+    margin-bottom: $spacing-xs;
+    color: var(--color-text-secondary);
+  }
+
+  input {
+    @include input-base;
+  }
+}
+
+.btn-submit {
+  @include btn-primary;
+  width: 100%;
+  padding: $spacing-sm $spacing-md;
+  margin-top: $spacing-sm;
+}
+
+.link {
+  text-align: center;
+  margin-top: $spacing-lg;
+  font-size: $font-sm;
+  color: var(--color-text-secondary);
+
+  a {
+    font-weight: 600;
+  }
+}
