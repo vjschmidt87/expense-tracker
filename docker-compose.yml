@@ -28,6 +28,9 @@ services:
       DB_USERNAME: ${DB_USERNAME:-postgres}
       DB_PASSWORD: ${DB_PASSWORD:-postgres}
       JWT_SECRET: ${JWT_SECRET:-ZXhwZW5zZXRyYWNrZXJzZWNyZXRrZXlmb3Jqd3R0b2tlbmdlbmVyYXRpb24xMjM0NTY3ODkw}
+      SEED_USERNAME: ${SEED_USERNAME:-admin}
+      SEED_PASSWORD: ${SEED_PASSWORD:-admin123}
+      SEED_EMAIL: ${SEED_EMAIL:-admin@expense.com}
       SPRING_PROFILES_ACTIVE: docker
     ports:
       - "8089:8089"

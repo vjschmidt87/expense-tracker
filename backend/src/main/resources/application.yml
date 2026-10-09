@@ -19,6 +19,10 @@ app:
   jwt:
     secret: ${JWT_SECRET:ZXhwZW5zZXRyYWNrZXJzZWNyZXRrZXlmb3Jqd3R0b2tlbmdlbmVyYXRpb24xMjM0NTY3ODkw}
     expiration-ms: 86400000
+  seed:
+    username: ${SEED_USERNAME:admin}
+    password: ${SEED_PASSWORD:admin123}
+    email: ${SEED_EMAIL:admin@expense.com}
 
 ---
 spring:
